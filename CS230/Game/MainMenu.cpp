@@ -27,30 +27,61 @@ void MainMenu::Load() {
 }
 void MainMenu::Update([[maybe_unused]] double dt)
 {
-	if (upKey.IsKeyReleased() == true) {
-		selectedIndex--;
-		if (selectedIndex < 0)
-			selectedIndex = 0;
-	}
-	if (downKey.IsKeyReleased() == true) {
-		selectedIndex++;
-		if (selectedIndex >= 3)
-			selectedIndex = 2;
-	}
-	if (selectKey.IsKeyReleased() == true) {
-
-		if (selectedIndex == 2)
-			Engine::GetGameStateManager().Shutdown();
-		else
-			Engine::GetGameStateManager().SetNextState(selectedIndex + 2);
-	}
-
-	for (int i = 0; i < static_cast<int>(MainMenu::Options::Count); i++)
+	if (upKey.IsKeyReleased())
 	{
-		if(selectedIndex == i)
-			RenderOption(optionsData[i], true);
-		else
-			RenderOption(optionsData[i], false);
+		if (selectedIndex > static_cast<int>(Options::Mode1))
+		{
+			RenderOption(optionsData[selectedIndex], false);
+
+			selectedIndex -= 1;
+
+			RenderOption(optionsData[selectedIndex], true);
+		}
+	}
+
+	if (downKey.IsKeyReleased())
+	{
+		if (selectedIndex < static_cast<int>(Options::Quit))
+		{
+			RenderOption(optionsData[selectedIndex], false);
+
+			selectedIndex += 1;
+
+			RenderOption(optionsData[selectedIndex], true);
+		}
+	}
+
+	if (selectKey.IsKeyReleased())
+	{
+		switch (selectedIndex)
+		{
+		case static_cast<int>(Options::Mode1):
+		{
+			Engine::GetGameStateManager().SetNextState(static_cast<int>(Screens::Mode1));
+		}
+		break;
+
+		case static_cast<int>(Options::Mode2):
+		{
+			Engine::GetGameStateManager().SetNextState(static_cast<int>(Screens::Mode2));
+		}
+		break;
+
+		case static_cast<int>(Options::Mode3):
+		{
+			Engine::GetGameStateManager().SetNextState(static_cast<int>(Screens::Mode3));
+		}
+		break;
+
+		case static_cast<int>(Options::Quit):
+		{
+			Engine::GetGameStateManager().Shutdown();
+		}
+		break;
+
+		default:
+			break;
+		}
 	}
 }
 void MainMenu::Unload()
@@ -74,7 +105,8 @@ void MainMenu::Draw()
 MainMenu::OptionData MainMenu::optionsData[static_cast<int>(MainMenu::Options::Count)] = {
 	{"Side Scroller", {0.5, 0.45}, {} },
 	{"Space Shooter", {0.5, 0.35}, {} },
-	{"Quit", {0.5, 0.25}, {} },
+	{"Hardcore Racing", {0.5, 0.25}, {} },
+	{"Quit", {0.5, 0.15}, {} },
 };
 
 void MainMenu::RenderOption(OptionData& data, bool isHighlighted) {

@@ -19,6 +19,7 @@ public:
 	enum class Options {
 		Mode1,
 		Mode2,
+		Mode3,
 		Quit,
 		Count,
 	};
