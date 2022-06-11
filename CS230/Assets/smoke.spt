@@ -1,0 +1,9 @@
+assets/Smoke.png
+HotSpot 36 32
+FrameSize 73 64
+Frame 0 0
+Frame 72 0
+Frame 144 0
+Frame 216 0
+Frame 288 0
+Anim assets/smoke.anm

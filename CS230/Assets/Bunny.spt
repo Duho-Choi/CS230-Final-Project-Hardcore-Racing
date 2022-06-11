@@ -1,0 +1,12 @@
+assets/Bunny.png
+HotSpot 35 0
+FrameSize 70 97
+Frame 0 0
+Frame 70 0
+Frame 140 0
+Frame 210 0
+Frame 280 0
+CollisionRect -26 0 26 70 
+Anim assets/bunnyWalk.anm
+Anim assets/deadBunny.anm
+Anim assets/bunnyAttack.anm

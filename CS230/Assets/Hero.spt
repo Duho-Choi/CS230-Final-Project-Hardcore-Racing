@@ -1,0 +1,19 @@
+assets/Hero.png
+FrameSize 128 128
+HotSpot 65 15
+Frame 0 0
+Frame 128 0
+Frame 256 0 
+Frame 384 0
+Frame 512 0
+Frame 0 128 
+Frame 128 128 
+Frame 256 128 
+Frame 384 128 
+Frame 512 128
+Anim assets/heroIdle.anm
+Anim assets/heroRun.anm
+Anim assets/heroJump.anm
+Anim assets/heroFall.anm
+Anim assets/heroSkid.anm
+CollisionRect -31 0 36 64

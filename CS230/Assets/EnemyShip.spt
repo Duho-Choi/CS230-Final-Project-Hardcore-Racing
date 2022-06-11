@@ -1,0 +1,22 @@
+assets/EnemyShip.png
+HotSpot 33 32
+HotSpot -15 -23
+HotSpot 15 -23
+FrameSize 65 58
+Frame 0 0
+Frame 65 0
+Frame 130 0
+Frame 195 0
+Frame 260 0
+Frame 325 0
+Frame 390 0
+Frame 455 0
+Frame 520 0
+Frame 585 0
+Frame 650 0
+Frame 715 0
+Frame 780 0
+Frame 845 0
+CollisionCircle 22 
+Anim assets/none.anm
+Anim assets/explosion.anm
