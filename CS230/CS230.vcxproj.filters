@@ -118,7 +118,7 @@
     <ClCompile Include="Game\GameParticles.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Mode3.cpp">
+    <ClCompile Include="Game\Car.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -273,7 +273,7 @@
     <ClInclude Include="Game\GameParticles.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Mode3.h">
+    <ClInclude Include="Game\Car.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
