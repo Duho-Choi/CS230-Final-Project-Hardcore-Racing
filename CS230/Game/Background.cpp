@@ -22,7 +22,7 @@ void Background::Unload() {
 void Background::Draw(const CS230::Camera& camera) {
 	for (unsigned int i = 0; i < backgrounds.size(); i++)
 	{
-		backgrounds.at(i).texturePtr->Draw(math::TranslateMatrix(math::vec2{ -camera.GetPosition().x / backgrounds.at(i).level, 0 }));
+		backgrounds.at(i).texturePtr->Draw(math::TranslateMatrix(math::vec2{ -camera.GetPosition() / backgrounds.at(i).level }));
 	}
 }
 math::ivec2 Background::Size() {
