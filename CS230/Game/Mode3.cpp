@@ -24,8 +24,8 @@ void Mode3::Load()
 	CS230::GameObjectManager* gameObjectManagerPtr = GetGSComponent<CS230::GameObjectManager>(); 
 	runnerPtr = new Runner(math::vec2{ Engine::GetWindow().GetSize() / 2 });
 	gameObjectManagerPtr->Add(runnerPtr);
-	gameObjectManagerPtr->Add(new Police(math::vec2{ 400, 200 }));
-	gameObjectManagerPtr->Add(new Police(math::vec2{ 1000, 200 }));
+	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 400, 200 }));
+	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 1000, 200 }));
 	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
 	gameObjectManagerPtr->Add(new Finish(math::irect2{ { 0, finish_line }, { Engine::GetWindow().GetSize().x, finish_line + 100 } }));
 

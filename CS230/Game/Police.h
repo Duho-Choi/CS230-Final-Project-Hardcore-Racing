@@ -9,9 +9,9 @@
 class Police : public CS230::GameObject
 {
 public:
-    Police(math::vec2 startPos);
+    Police(GameObject* player, math::vec2 startPos);
     void Update(double dt) override;
-    //void Draw(math::TransformMatrix cameraMatrix) override;
+    void Draw(math::TransformMatrix cameraMatrix) override;
 
     // Object Types
     GameObjectType GetObjectType() override;
@@ -20,7 +20,11 @@ public:
     void ResolveCollision(CS230::GameObject* objectB) override;
 
 private:
+    GameObject* player;
+    
     CS230::Sprite explosionSprite{ "Assets/Mode3/Explosion.spt", this };
+
+    double rotation;
 
     static constexpr double accel = 500;
     static constexpr double drag = 1.0f;

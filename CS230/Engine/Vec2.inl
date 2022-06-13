@@ -82,10 +82,15 @@ namespace math
         const double length = abs(this->x * this->x + this->y * this->y);
         return length;
     }
-    constexpr vec2 vec2::Normalize() noexcept
+    constexpr vec2 vec2::Normalize() const noexcept
     {
-        *this = *this / abs(sqrt(this->x * this->x + this->y * this->y));
-        return *this;
+        return *this / abs(sqrt(this->x * this->x + this->y * this->y));
+    }
+    constexpr double vec2::Cross(const vec2& v) const noexcept
+    {
+        //v1w2 - w2v1
+        const double result = this->x * v.y - this->y * v.x;
+        return result;
     }
 
     // ivec2 operators
