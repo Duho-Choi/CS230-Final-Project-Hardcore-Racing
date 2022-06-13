@@ -49,3 +49,16 @@ private:
     };
     static constexpr int NumParticles = 150;
 };
+
+class DirtEmitter : public CS230::ParticleEmitter {
+public:
+    DirtEmitter();
+private:
+    class Dirt : public CS230::ParticleEmitter::Particle {
+    public:
+        Dirt(std::string spriteFile) : CS230::ParticleEmitter::Particle(spriteFile) {}
+        GameObjectType GetObjectType() { return GameObjectType::Particle; }
+        std::string GetObjectTypeName() { return "Dirt Particle"; }
+    };
+    static constexpr int NumParticles = 150;
+};

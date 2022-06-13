@@ -20,6 +20,9 @@ enum class GameObjectType {
     Floor,
     Trigger,
     Laser,
+    Runner,
+    Police,
+    Spike,
     Particle,
     Count,
 };

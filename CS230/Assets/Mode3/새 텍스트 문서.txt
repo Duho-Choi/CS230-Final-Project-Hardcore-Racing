@@ -1,0 +1,4 @@
+assets/Runner.png
+HotSpot 44 106
+Anim assets/none.anm
+CollisionRect -44 -106 44 106
