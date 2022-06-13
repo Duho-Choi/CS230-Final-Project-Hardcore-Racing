@@ -22,8 +22,8 @@ void Mode3::Load()
 	CS230::GameObjectManager* gameObjectManagerPtr = GetGSComponent<CS230::GameObjectManager>(); 
 	runnerPtr = new Runner(math::vec2{ Engine::GetWindow().GetSize() / 2 });
 	gameObjectManagerPtr->Add(runnerPtr);
-	gameObjectManagerPtr->Add(new Police(math::vec2{ 200, 200 }));
-	gameObjectManagerPtr->Add(new Police(math::vec2{ 1200, 200 }));
+	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 200, 200 }));
+	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 1200, 200 }));
 
 	// backgroundPtr
 	AddGSComponent(new Mode3_background("Assets/Mode3/background_track.jpg"));

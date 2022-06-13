@@ -43,7 +43,8 @@ namespace math
         constexpr vec2 operator-() const noexcept;
 
         [[nodiscard]] constexpr double LengthSquared() noexcept;
-        constexpr vec2 Normalize() noexcept;
+        constexpr vec2 Normalize() const noexcept;
+        constexpr double Cross(const vec2& v) const noexcept;
     };
 
     [[nodiscard]] constexpr vec2 operator+(const vec2& left, const vec2& right) noexcept;
