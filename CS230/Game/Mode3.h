@@ -30,5 +30,4 @@ private:
 	CS230::Texture ScoreTexture;
 	CS230::Texture RestartTexture;
 
-	CS230::Texture* backgroundPtr{ nullptr };
 };
