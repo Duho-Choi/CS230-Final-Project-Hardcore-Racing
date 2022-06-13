@@ -22,6 +22,8 @@ public:
     bool IsDead() { return isDead; }
 
 private:
+    CS230::Sprite Explosion;
+
     CS230::InputKey frontKey;
     CS230::InputKey backKey;
     CS230::InputKey leftKey;

@@ -7,6 +7,7 @@
 #include "GameObjectTypes.h"
 #include "Runner_Anims.h"		// Runner_Anim
 #include "GameParticles.h"
+#include "Explosion_Anims.h"
 
 Runner::Runner(math::vec2 startPos)
 	: GameObject(startPos, 0, { 0.5, 0.5 }), leftKey(CS230::InputKey::Keyboard::A),
@@ -14,6 +15,7 @@ Runner::Runner(math::vec2 startPos)
 	backKey(CS230::InputKey::Keyboard::S), healthPoint(0), isDead(false), rotation(0)
 {
 	AddGOComponent(new CS230::Sprite("Assets/Mode3/Runner.spt", this));
+	explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
 }
 void Runner::Update(double dt) 
 {
@@ -106,7 +108,7 @@ void Runner::ResolveCollision(CS230::GameObject* objectB)
 {
 	if (CanCollideWith(objectB->GetObjectType()) == true)
 	{
-		GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Runner_Anim::Explode_Anim));
+		explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
 		RemoveGOComponent<CS230::Collision>();
 		isDead = true;
 	}

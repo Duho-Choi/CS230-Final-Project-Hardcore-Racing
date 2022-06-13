@@ -3,12 +3,14 @@
 #include "Police.h"
 #include "GameObjectTypes.h"
 #include "Police_Anims.h"
+#include "Explosion_Anims.h"
 
 Police::Police(math::vec2 startPos)
 	: GameObject(startPos, 0, { 0.75, 0.75 })
 {
 	AddGOComponent(new CS230::Sprite("Assets/Mode3/Police.spt", this));
 	GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Police_Anim::Siren_Anim));
+	explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
 }
 void Police::Update(double dt)
 {

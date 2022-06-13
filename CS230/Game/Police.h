@@ -20,7 +20,8 @@ public:
     void ResolveCollision(CS230::GameObject* objectB) override;
 
 private:
+    CS230::Sprite explosionSprite{ "Assets/Mode3/Explosion.spt", this };
+
     static constexpr double accel = 500;
     static constexpr double drag = 1.5f;
-
 };
