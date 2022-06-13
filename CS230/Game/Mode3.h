@@ -27,4 +27,7 @@ private:
 	CS230::Texture GameOverTexture;
 	CS230::Texture ScoreTexture;
 	CS230::Texture RestartTexture;
+	static constexpr int camera_speed = 1000;
+
+	CS230::Texture* backgroundPtr{ nullptr };
 };

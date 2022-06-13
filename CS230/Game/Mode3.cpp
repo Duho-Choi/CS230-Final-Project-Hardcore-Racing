@@ -8,10 +8,18 @@
 #include "Score.h"
 #include "Screens.h"
 #include "GameParticles.h"
+#include "Hp.h"
 
 Mode3::Mode3() : modeReload(CS230::InputKey::Keyboard::R), mainMenu(CS230::InputKey::Keyboard::Escape) {}
 
-void Mode3::Load() {
+void Mode3::Load()
+{
+	// score
+	AddGSComponent(new Score{ 0, Fonts::Font1 });
+
+	// hp
+	AddGSComponent(new Hp{ 100, Fonts::Font1 });
+
 	// Add GameObjectManager
 	AddGSComponent(new CS230::GameObjectManager);
 
@@ -20,18 +28,12 @@ void Mode3::Load() {
 	runnerPtr = new Runner({ 200, 200 });
 	gameObjectManagerPtr->Add(runnerPtr);
 
-	// Add Backgrounds
-	AddGSComponent(new Background);
-	Background* backgroundPtr = GetGSComponent<Background>();
-	backgroundPtr->Add("Assets/clouds.png", 4);
-	backgroundPtr->Add("Assets/Mountains.png", 2);
-	backgroundPtr->Add("Assets/foreground.png", 1);
+	// backgroundPtr
+	backgroundPtr = Engine::GetTextureManager().Load("Assets/Mode3/background_track.jpg");
 
-	// Add Camera
-	CS230::Camera* cameraPtr = new CS230::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 },
-		{0.35 * Engine::GetWindow().GetSize().x, 0 } });
+	CS230::Camera* cameraPtr = new CS230::Camera({});
 	AddGSComponent(cameraPtr);
-	cameraPtr->SetExtent({ { 0, 0 }, { GetGSComponent<Background>()->Size() - Engine::GetWindow().GetSize() } });
+	cameraPtr->SetExtent({ { 0, 0 }, { backgroundPtr->GetSize() - Engine::GetWindow().GetSize()}});
 
 	// Add Fonts
 	GameOverTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Game Over", 0x00FFFFFF, true);
@@ -46,14 +48,17 @@ void Mode3::Load() {
 #ifdef _DEBUG
 	AddGSComponent(new ShowCollision(CS230::InputKey::Keyboard::Tilde));
 #endif
-
 }
+
 void Mode3::Update(double dt)
 {
 	GetGSComponent<CS230::GameObjectManager>()->Update(dt);
+	GetGSComponent<CS230::Camera>()->Mode3_Update(dt, Mode3::camera_speed);
 
 	if (mainMenu.IsKeyReleased() == true)
 	{
+	// @ Modify update to player Ptr
+	//GetGSComponent<CS230::Camera>()->Update(heroPtr->GetPosition());
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(Screens::MainMenu));
 	}
 #if _DEBUG
@@ -66,17 +71,10 @@ void Mode3::Update(double dt)
 #if _DEBUG
 	GetGSComponent<ShowCollision>()->Update(dt);
 #endif
-
 }
 void Mode3::Draw()
 {
 	Engine::GetWindow().Clear(0x50FF50FF);
-	//GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
-	math::TransformMatrix cameraMatrix = GetGSComponent<CS230::Camera>()->GetMatrix();
-	GetGSComponent<CS230::GameObjectManager>()->DrawAll(cameraMatrix);
-
-	// Draw Fonts
-	math::ivec2 winSize = Engine::GetWindow().GetSize();
 	
 	if (runnerPtr->IsDead() == false)
 	{
@@ -88,6 +86,23 @@ void Mode3::Draw()
 		GameOverTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - GameOverTexture.GetSize().x / 2, winSize.y / 2 + GameOverTexture.GetSize().y / 2 }));
 		RestartTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - RestartTexture.GetSize().x / 2, winSize.y / 2 - RestartTexture.GetSize().y / 2 }));
 	}
+	
+	// Background / Camera
+	Engine::GetWindow().Clear(0x6495edFF);
+	CS230::Camera* cameraPtr = GetGSComponent<CS230::Camera>();
+
+	math::ivec2 background_vec = { (Engine::GetWindow().GetSize().x - backgroundPtr->GetSize().x) / 2, 0 };
+	backgroundPtr->Draw(math::TranslateMatrix( static_cast<math::vec2>(background_vec) - cameraPtr->GetPosition() ) );
+	
+	// GameObjectManager
+	math::TransformMatrix cameraMatrix = cameraPtr->GetMatrix();
+	gameObjectManagerPtr->DrawAll(cameraMatrix);
+
+	// Draw Fonts
+	// Score & Hp
+	math::ivec2 winSize = Engine::GetWindow().GetSize();
+	GetGSComponent<Score>()->Draw(math::ivec2{ 10, winSize.y - 5 });
+	GetGSComponent<Hp>()->Draw(math::ivec2{ winSize.x - 10, winSize.y - 5 });
 }
 void Mode3::Unload()
 {

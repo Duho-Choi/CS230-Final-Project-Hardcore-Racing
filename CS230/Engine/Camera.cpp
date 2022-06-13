@@ -45,6 +45,20 @@ namespace CS230 {
 		}
 	}
 
+	void Camera::Mode3_Update(double dt, int speed)
+	{
+		if (position.y < extent.Top())
+		{
+			position.y += dt * speed;
+		}
+
+		if (position.y > extent.Top())
+		{
+			position.y = extent.Top();
+		}
+		
+	}
+
 	math::TransformMatrix Camera::GetMatrix()
 	{
 		math::TransformMatrix result = math::TranslateMatrix(-position);
