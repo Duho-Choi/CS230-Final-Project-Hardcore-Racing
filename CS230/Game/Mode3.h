@@ -30,5 +30,5 @@ private:
 
 	CS230::GameObjectManager* gameObjectManagerPtr;
 
-	Background* backgroundPtr;
+	CS230::Texture* backgroundPtr{ nullptr };
 };
