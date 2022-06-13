@@ -10,6 +10,8 @@ class Runner;
 
 class Mode3 : public CS230::GameState {
 public:
+	static constexpr int speed = 1000;
+
 	Mode3();
 	void Load() override;
 	void Update(double dt) override;
@@ -27,7 +29,6 @@ private:
 	CS230::Texture GameOverTexture;
 	CS230::Texture ScoreTexture;
 	CS230::Texture RestartTexture;
-	static constexpr int camera_speed = 1000;
 
 	CS230::Texture* backgroundPtr{ nullptr };
 };

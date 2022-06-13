@@ -3,6 +3,7 @@
 #include "../Engine/Collision.h"
 #include "../Engine/ShowCollision.h"
 #include "Runner.h"
+#include "Mode3.h"
 #include "GameObjectTypes.h"
 #include "Runner_Anims.h"		// Runner_Anim
 #include "GameParticles.h"
@@ -61,27 +62,16 @@ void Runner::Update(double dt)
 		{
 
 		}
-
-		// Go Back
-
-		// Laser
-		//CS230::GameObjectManager* gameObjectManager = Engine::GetGSComponent<CS230::GameObjectManager>();
-		//if (laserKey.IsKeyDown() == true)
-		//{
-		//	if (wasLaserKeyPressed == false)
-		//	{
-
-		//	}
-		//}
 	}
 
 	UpdateVelocity(-GetVelocity() * Runner::drag * dt);
-	UpdatePosition(GetVelocity() * dt);
+	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt });
 }
 void Runner::Draw(math::TransformMatrix cameraMatrix)
 {
+	//GameObject::Draw(cameraMatrix);
 	CS230::Sprite* spritePtr = GetGOComponent<CS230::Sprite>();
-	math::TransformMatrix displayMatrix = GetMatrix() * cameraMatrix * math::RotateMatrix{ rotation };
+	math::TransformMatrix displayMatrix = cameraMatrix * GetMatrix() * math::RotateMatrix{ rotation };
 
 	if (spritePtr != nullptr)
 		spritePtr->Draw(displayMatrix);
