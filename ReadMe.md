@@ -11,35 +11,31 @@ Minsu Kim
 Please Check `Assets\Mode3` folder! \
 Every assets are CC0.
 
-# Concept (Later deleted) 
-+ 컨셉 : 경찰과 도둑
+# Game Concept
++ Concept : police and thieves
 
 + Win / Lose
-> Win : 결승선 도착
-> Lose : HP가 다 깎이면 게임에 끝남
+> Win : Reach to the goal point.
+> Lose : Lose all HP.
 
-> 경찰이 쫓아오고 중간중간 장애물이 있음 (시민차, 스파이크) 
-> 그런것에 부딪히면 HP가 깎임
+> Police chase the player and also track has some spike.
+> If player collide with that, player lose their HP.
 
-+ 움직임
-> Mode2처럼 개구린 조작감 그대로 유지할 예정
-> 경찰도 예외 없이 그대로 유지
++ Moving
+> Player has their own moving (Actually, just rotate when moving left and right)
+> Police moves like Mode2 
 
 + Collision
-> AABB Collision 체크해서 부딪히면 튕겨나가게 (장애물이나 경찰들)
+> AABB Collision check with spike, police, player, goal point.
 
 + particle
-> 차 뒤로 흙 튀기는거
+> Player rut
 
 + AI
-> 경찰이 플레이어 쫒아가게
+> Police check player position and move that rotation.
 
 + Animation
-> 터지는거 
+> Explode when police collide with each other, or player lose all their HP.
 
 + Score
-> 경찰차들끼리 부딪혀서 폭파시키게 하면 점수를 얻게 할 예정
-
-- Include compilation instructions, please!
-- Also, include the name of your partner, if you have one. :)
-> 추후 추가
+> Encourage the police to bump into each other, and score points when they bump into each other.
