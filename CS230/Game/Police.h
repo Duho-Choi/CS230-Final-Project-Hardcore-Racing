@@ -29,5 +29,5 @@ private:
     static constexpr double accel = 18;
     static constexpr float drag = 1.0f;
 
-    static constexpr double rotationRate = 2;
+    static constexpr double rotationRate = 1.5;
 };

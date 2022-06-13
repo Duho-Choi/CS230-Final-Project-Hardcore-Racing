@@ -34,11 +34,11 @@ void Police::Update(double dt)
 
 	if (facingVector.Cross(playerVector) > 0.05)
 	{
-		UpdateRotation(1.5 * dt);
+		UpdateRotation(rotationRate * dt);
 	}
 	else if (facingVector.Cross(playerVector) < -0.05)
 	{
-		UpdateRotation(-1.5 * dt);
+		UpdateRotation(-rotationRate * dt);
 	}
 //if (facingVector.Cross(playerVector) <= -0.05)
 //{
