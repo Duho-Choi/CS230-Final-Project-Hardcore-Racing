@@ -34,3 +34,11 @@ MeteorBitEmitter::MeteorBitEmitter()
 		AddParticle(new MeteorBit("assets/MeteorBit.spt"));
 	}
 }
+DirtEmitter::DirtEmitter()
+	: ParticleEmitter(1.0)
+{
+	for (int i = 0; i < NumParticles; i++)
+	{
+		AddParticle(new Dirt("assets/MeteorBit.spt"));
+	}
+}

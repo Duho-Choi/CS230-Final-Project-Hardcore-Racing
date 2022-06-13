@@ -7,6 +7,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{70bae3f0-b32a-43c0-840d-23019573650a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Mode3">
+      <UniqueIdentifier>{767fcbc8-eff1-4cad-9914-ceab5bd6ce89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -118,11 +121,17 @@
     <ClCompile Include="Game\GameParticles.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Car.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Mode3.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Police.cpp">
+      <Filter>Game\Mode3</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Spike.cpp">
+      <Filter>Game\Mode3</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Runner.cpp">
+      <Filter>Game\Mode3</Filter>
     </ClCompile>
     <ClCompile Include="Game\Hp.cpp">
       <Filter>Game</Filter>
@@ -279,11 +288,23 @@
     <ClInclude Include="Game\GameParticles.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Car.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Mode3.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Police.h">
+      <Filter>Game\Mode3</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Spike.h">
+      <Filter>Game\Mode3</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Runner.h">
+      <Filter>Game\Mode3</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Runner_Anims.h">
+      <Filter>Game\Mode3</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Police_Anims.h">
+      <Filter>Game\Mode3</Filter>
     </ClInclude>
     <ClInclude Include="Game\Hp.h">
       <Filter>Game</Filter>

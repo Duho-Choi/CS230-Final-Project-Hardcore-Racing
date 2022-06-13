@@ -188,7 +188,6 @@ xcopy /d /y Assets\* "$(OutputPath)Assets"
     <ClCompile Include="Game\Background.cpp" />
     <ClCompile Include="Game\Ball.cpp" />
     <ClCompile Include="Game\Bunny.cpp" />
-    <ClCompile Include="Game\Car.cpp" />
     <ClCompile Include="Game\Exit.cpp" />
     <ClCompile Include="Game\Floor.cpp" />
     <ClCompile Include="Game\GameParticles.cpp" />
@@ -200,9 +199,12 @@ xcopy /d /y Assets\* "$(OutputPath)Assets"
     <ClCompile Include="Game\Mode1.cpp" />
     <ClCompile Include="Game\Mode2.cpp" />
     <ClCompile Include="Game\Mode3.cpp" />
+    <ClCompile Include="Game\Police.cpp" />
+    <ClCompile Include="Game\Runner.cpp" />
     <ClCompile Include="Game\Score.cpp" />
     <ClCompile Include="Game\ScreenWrap.cpp" />
     <ClCompile Include="Game\Ship.cpp" />
+    <ClCompile Include="Game\Spike.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
     <ClCompile Include="Game\TreeStump.cpp" />
@@ -236,7 +238,6 @@ xcopy /d /y Assets\* "$(OutputPath)Assets"
     <ClInclude Include="Game\Ball_Anims.h" />
     <ClInclude Include="Game\Bunny.h" />
     <ClInclude Include="Game\Bunny_Anims.h" />
-    <ClInclude Include="Game\Car.h" />
     <ClInclude Include="Game\Exit.h" />
     <ClInclude Include="Game\Flame_Anims.h" />
     <ClInclude Include="Game\Floor.h" />
@@ -254,11 +255,16 @@ xcopy /d /y Assets\* "$(OutputPath)Assets"
     <ClInclude Include="Game\Mode1.h" />
     <ClInclude Include="Game\Mode2.h" />
     <ClInclude Include="Game\Mode3.h" />
+    <ClInclude Include="Game\Police.h" />
+    <ClInclude Include="Game\Police_Anims.h" />
+    <ClInclude Include="Game\Runner.h" />
+    <ClInclude Include="Game\Runner_Anims.h" />
     <ClInclude Include="Game\Score.h" />
     <ClInclude Include="Game\Screens.h" />
     <ClInclude Include="Game\ScreenWrap.h" />
     <ClInclude Include="Game\Ship.h" />
     <ClInclude Include="Game\Ship_Anims.h" />
+    <ClInclude Include="Game\Spike.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\Timer.h" />
     <ClInclude Include="Game\TreeStump.h" />

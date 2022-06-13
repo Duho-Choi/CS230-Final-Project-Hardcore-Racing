@@ -1,0 +1,5 @@
+Assets/Mode3/Police.png
+HotSpot 44 108
+Anim Assets/Mode3/none.anm
+Anim Assets/Mode3/siren.anm
+CollisionRect -44 -108 44 108

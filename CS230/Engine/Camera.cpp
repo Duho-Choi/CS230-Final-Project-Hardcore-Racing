@@ -49,14 +49,12 @@ namespace CS230 {
 	{
 		if (position.y < extent.Top())
 		{
-			position.y += dt * speed;
+			position.y += speed * dt;
 		}
-
 		if (position.y > extent.Top())
 		{
 			position.y = extent.Top();
 		}
-		
 	}
 
 	math::TransformMatrix Camera::GetMatrix()
