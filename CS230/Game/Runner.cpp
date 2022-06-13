@@ -8,11 +8,13 @@
 #include "Runner_Anims.h"		// Runner_Anim
 #include "GameParticles.h"
 #include "Explosion_Anims.h"
+#include "Hp.h"
 
 Runner::Runner(math::vec2 startPos)
 	: GameObject(startPos, 0, { 0.5, 0.5 }), leftKey(CS230::InputKey::Keyboard::A),
 	rightKey(CS230::InputKey::Keyboard::D), frontKey(CS230::InputKey::Keyboard::W),
-	backKey(CS230::InputKey::Keyboard::S), healthPoint(0), isDead(false), rotation(0)
+	backKey(CS230::InputKey::Keyboard::S), rotation(0),
+	hurtTimer(0), drawRunner(true), isDead(false)
 {
 	AddGOComponent(new CS230::Sprite("Assets/Mode3/Runner.spt", this));
 	explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
@@ -64,19 +66,43 @@ void Runner::Update(double dt)
 		{
 
 		}
+
+		// Blink Runner
+		if (hurtTimer > 0)
+		{
+			hurtTimer -= dt;
+			drawRunner = !drawRunner;
+		}
+		else if (drawRunner == false)
+			drawRunner = true;
 	}
 
 	UpdateVelocity(-GetVelocity() * Runner::drag * dt);
 	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt });
+
+	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
+	{
+		explosionSprite.Update(dt);
+	}
 }
 void Runner::Draw(math::TransformMatrix cameraMatrix)
 {
-	//GameObject::Draw(cameraMatrix);
-	CS230::Sprite* spritePtr = GetGOComponent<CS230::Sprite>();
-	math::TransformMatrix displayMatrix = cameraMatrix * GetMatrix() * math::RotateMatrix{ rotation };
+	if (drawRunner == true)
+	{
+		CS230::Sprite* spritePtr = GetGOComponent<CS230::Sprite>();
+		math::TransformMatrix displayMatrix = cameraMatrix * GetMatrix() * math::RotateMatrix{ rotation };
 
-	if (spritePtr != nullptr)
-		spritePtr->Draw(displayMatrix);
+		if (spritePtr != nullptr)
+			spritePtr->Draw(displayMatrix);
+	}
+
+	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
+	{
+		if(explosionSprite.IsAnimationDone() == true)
+			explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
+		else
+			explosionSprite.Draw(cameraMatrix * GetMatrix() * math::ScaleMatrix({ 3, 3 }));
+	}
 
 #ifdef _DEBUG
 	// Show Collision
@@ -108,8 +134,16 @@ void Runner::ResolveCollision(CS230::GameObject* objectB)
 {
 	if (CanCollideWith(objectB->GetObjectType()) == true)
 	{
-		explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
-		RemoveGOComponent<CS230::Collision>();
-		isDead = true;
+		if (hurtTimer <= 0)
+		{
+			hurtTimer = hurtTime;
+			Engine::GetGSComponent<Hp>()->MinusHp(30);
+			isDead = Engine::GetGSComponent<Hp>()->IsDead();
+			if (isDead == true)
+			{
+				explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
+				RemoveGOComponent<CS230::Collision>();
+			}
+		}
 	}
 }

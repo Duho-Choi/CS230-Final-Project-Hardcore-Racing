@@ -18,9 +18,10 @@ public:
 	Hp(int startingScore, Fonts fontToUse);
 	void MinusHp(int damage);
 	void Draw(math::ivec2 location);
+	bool IsDead();
 private:
 	void RenderText();
 	Fonts fontToUse;
-	unsigned int hp;
+	int hp;
 	CS230::Texture hpTexture;
 };

@@ -22,7 +22,7 @@ public:
     bool IsDead() { return isDead; }
 
 private:
-    CS230::Sprite Explosion;
+    CS230::Sprite explosionSprite{ "Assets/Mode3/Explosion.spt", this };
 
     CS230::InputKey frontKey;
     CS230::InputKey backKey;
@@ -30,11 +30,15 @@ private:
     CS230::InputKey rightKey;
 
     double rotation;
+
     static constexpr double left_right_accel = 600;
     static constexpr float maxRotation = 0.5f;
     static constexpr double accel = 600;
     static constexpr int maxVelocity = 1000;
-    static constexpr double drag = 2.0f;
-    unsigned int healthPoint;
+    static constexpr float drag = 2.0f;
+    static constexpr float hurtTime = 0.1f;
+
+    double hurtTimer;
+    bool drawRunner;
     bool isDead;
 };

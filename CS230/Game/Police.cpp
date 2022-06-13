@@ -1,6 +1,7 @@
 
 #include "../Engine/Collision.h"
 #include "Police.h"
+#include "Mode3.h"
 #include "GameObjectTypes.h"
 #include "Police_Anims.h"
 #include "Explosion_Anims.h"
@@ -16,13 +17,16 @@ void Police::Update(double dt)
 {
 	GameObject::Update(dt);
 	 
-	/*if (GetGOComponent<CS230::Sprite>()->GetCurrentAnim() == static_cast<int>(Police_Anim::Explode_Anim))
+	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
 	{
-		if (GetGOComponent<CS230::Sprite>()->IsAnimationDone() == true)
+		if (explosionSprite.IsAnimationDone() == true)
 		{
 			SetShouldBeDestroyed(true);
 		}
-	}*/
+	}
+
+	UpdateVelocity(-GetVelocity() * Police::drag * dt);
+	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt });
 }
 
 GameObjectType Police::GetObjectType()
@@ -44,7 +48,7 @@ void Police::ResolveCollision(CS230::GameObject* objectB)
 {
 	if (CanCollideWith(objectB->GetObjectType()) == true)
 	{
-		GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Police_Anim::Explode_Anim));
+		GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Police_Anim::None_Anim));
 		RemoveGOComponent<CS230::Collision>();
 	}
 }

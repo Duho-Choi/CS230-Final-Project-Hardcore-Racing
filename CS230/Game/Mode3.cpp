@@ -15,12 +15,6 @@ Mode3::Mode3() : modeReload(CS230::InputKey::Keyboard::R), mainMenu(CS230::Input
 
 void Mode3::Load()
 {
-	// score
-	AddGSComponent(new Score{ 0, Fonts::Font1 });
-
-	// hp
-	AddGSComponent(new Hp{ 100, Fonts::Font1 });
-
 	// Add GameObjectManager
 	AddGSComponent(new CS230::GameObjectManager);
 
@@ -28,6 +22,8 @@ void Mode3::Load()
 	CS230::GameObjectManager* gameObjectManagerPtr = GetGSComponent<CS230::GameObjectManager>(); 
 	runnerPtr = new Runner(math::vec2{ Engine::GetWindow().GetSize() / 2 });
 	gameObjectManagerPtr->Add(runnerPtr);
+	gameObjectManagerPtr->Add(new Police(math::vec2{ 200, 200 }));
+	gameObjectManagerPtr->Add(new Police(math::vec2{ 1200, 200 }));
 
 	// backgroundPtr
 	AddGSComponent(new Mode3_background("Assets/Mode3/background_track.jpg"));
@@ -37,8 +33,12 @@ void Mode3::Load()
 	cameraPtr->SetExtent({ { 0, 0 }, { 0, 100000000 }});
 
 	// Add Fonts
+	// Score
+	AddGSComponent(new Score{ 0, Fonts::Font1 });
+	// Hp
+	AddGSComponent(new Hp{ 100, Fonts::Font1 });
+	// Game Over
 	GameOverTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Game Over", 0x00FFFFFF, true);
-	AddGSComponent(new Score(0, Fonts::Font1));
 	ScoreTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Score : ", 0xFFFFFFFF, true);
 	RestartTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Press r to restart", 0xFFFFFFFF, true);
 

@@ -11,6 +11,7 @@ Creation date: 6/13/2022
 #include "..\Engine\Engine.h"
 #include "Hp.h"
 #include "Fonts.h"
+#include "Runner.h"
 
 Hp::Hp(int startingHp, Fonts fontToUse)
 	: hp(startingHp), fontToUse(fontToUse)
@@ -20,6 +21,10 @@ Hp::Hp(int startingHp, Fonts fontToUse)
 void Hp::MinusHp(int damage)
 {
 	hp -= damage;
+	
+	if (hp < 0)
+		hp = 0;
+	
 	RenderText();
 }
 void Hp::Draw(math::ivec2 location)
@@ -30,4 +35,11 @@ void Hp::RenderText()
 {
 	std::string hpString = "Hp : " + std::to_string(hp);
 	hpTexture = Engine::GetSpriteFont(static_cast<int>(fontToUse)).DrawTextToTexture(hpString, 0xFFFFFFFF, true);
+}
+bool Hp::IsDead()
+{
+	if (hp <= 0)
+		return true;
+	else 
+		return false;
 }
