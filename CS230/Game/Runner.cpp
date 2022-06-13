@@ -62,10 +62,12 @@ void Runner::Update(double dt)
 			if (GetVelocity().y > -maxVelocity)
 				UpdateVelocity({ 0, -accel * dt });
 		}
-		if (frontKey.IsKeyReleased() == true && frontKey.IsKeyDown() == false)
-		{
-
-		}
+		Engine::GetGSComponent<DustEmitter>()->Emit(3,
+			GetPosition() - static_cast<math::vec2>(-GetGOComponent<CS230::Sprite>()->GetHotSpot(1)),
+			GetVelocity(), { -10, 20 }, 3.14 / 4);
+		Engine::GetGSComponent<DustEmitter>()->Emit(3,
+			GetPosition() - static_cast<math::vec2>(-GetGOComponent<CS230::Sprite>()->GetHotSpot(2)),
+			GetVelocity(), { -10, 20 }, 3.14 / 4);
 
 		// Blink Runner
 		if (hurtTimer > 0)

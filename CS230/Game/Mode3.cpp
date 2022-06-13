@@ -47,7 +47,7 @@ void Mode3::Load()
 	RestartTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Press r to restart", 0xFFFFFFFF, true);
 
 	// Add Particle
-	AddGSComponent(new DirtEmitter());
+	AddGSComponent(new DustEmitter());
 	
 	// if Debug, Add ShowCollision
 #ifdef _DEBUG

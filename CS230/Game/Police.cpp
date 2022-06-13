@@ -32,13 +32,20 @@ void Police::Update(double dt)
 	
 	if (GetRotation() <= facingVector.Cross(playerVector))
 	{
-		UpdateRotation(100 * dt);
+		UpdateRotation(1.5 * dt);
 	}
 	else
 	{
-		UpdateRotation(-100 * dt);
+		UpdateRotation(-1.5 * dt);
 	}
-	
+//if (facingVector.Cross(playerVector) <= -0.05)
+//{
+//	UpdateRotation(-rotationRate * dt);
+//}
+//	UpdateVelocity(math::RotateMatrix(GetRotation()) * math::vec2{ 0,accel * dt });
+//}
+//UpdateVelocity(-(GetVelocity() * drag * dt));
+
 	UpdateVelocity(-GetVelocity() * Police::drag * dt);
 	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt });
 }

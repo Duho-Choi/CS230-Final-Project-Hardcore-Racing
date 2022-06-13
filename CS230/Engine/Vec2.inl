@@ -88,7 +88,6 @@ namespace math
     }
     constexpr double vec2::Cross(const vec2& v) const noexcept
     {
-        //v1w2 - w2v1
         const double result = this->x * v.y - this->y * v.x;
         return result;
     }
