@@ -12,8 +12,6 @@ Creation date: 6/9/2022
 #include "..\Engine\Input.h"
 #include "..\Engine\Camera.h"
 #include "..\Engine\GameObjectManager.h"
-#include "Background.h"
-
 
 class Mode3 : public CS230::GameState {
 public:
@@ -25,6 +23,8 @@ public:
 
 	std::string GetName() override { return "Mode 3"; }
 private:
+	static constexpr int camera_speed = 1000;
+
 	CS230::InputKey modeMain;
 	CS230::InputKey modeReload;
 

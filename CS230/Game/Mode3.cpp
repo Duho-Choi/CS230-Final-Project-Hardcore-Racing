@@ -36,19 +36,17 @@ void Mode3::Load()
 	// backgroundPtr
 	backgroundPtr = Engine::GetTextureManager().Load("Assets/Mode3/background_track.jpg");
 
-	// cameraPtr
-	// @ Change new camera extent, position, movableRange
-	CS230::Camera* cameraPtr = new CS230::Camera((math::rect2{ math::vec2(Engine::GetWindow().GetSize().x / 100.0 * 15, 0),
-math::vec2(Engine::GetWindow().GetSize().x / 100.0 * 35, Engine::GetWindow().GetSize().y) }));
+
+	CS230::Camera* cameraPtr = new CS230::Camera({});
 	AddGSComponent(cameraPtr);
-	cameraPtr->SetExtent(math::irect2{ math::ivec2(0, 0),
-	math::ivec2(backgroundPtr->GetSize().x - Engine::GetWindow().GetSize().x, Engine::GetWindow().GetSize().y) });
+	cameraPtr->SetExtent({ { 0, 0 }, { backgroundPtr->GetSize() - Engine::GetWindow().GetSize()}});
 }
 
 void Mode3::Update(double dt)
 {
 	gameObjectManagerPtr->Update(dt);
 
+	GetGSComponent<CS230::Camera>()->Mode3_Update(dt, Mode3::camera_speed);
 	// @ Modify update to player Ptr
 	//GetGSComponent<CS230::Camera>()->Update(heroPtr->GetPosition());
 
@@ -71,15 +69,19 @@ void Mode3::Unload() {
 
 void Mode3::Draw()
 {
+	// Background / Camera
 	Engine::GetWindow().Clear(0x6495edFF);
-	backgroundPtr->Draw(math::TranslateMatrix((Engine::GetWindow().GetSize() - backgroundPtr->GetSize()) / 2));
-
 	CS230::Camera* cameraPtr = GetGSComponent<CS230::Camera>();
 
+	math::ivec2 background_vec = { (Engine::GetWindow().GetSize().x - backgroundPtr->GetSize().x) / 2, 0 };
+	backgroundPtr->Draw(math::TranslateMatrix( static_cast<math::vec2>(background_vec) - cameraPtr->GetPosition() ) );
+	
+	// GameObjectManager
 	math::TransformMatrix cameraMatrix = cameraPtr->GetMatrix();
-
 	gameObjectManagerPtr->DrawAll(cameraMatrix);
 
+
+	// Score
 	math::ivec2 winSize = Engine::GetWindow().GetSize();
 	GetGSComponent<Score>()->Draw(math::ivec2{ 10, winSize.y - 5 });
 

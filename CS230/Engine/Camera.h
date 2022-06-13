@@ -26,6 +26,7 @@ namespace CS230 {
 		const math::vec2& GetPosition() const;
 		void SetExtent(math::irect2 newExtent);
 		void Update(const math::vec2& followObjPos); 
+		void Mode3_Update(double dt, int speed);
 
 		math::TransformMatrix GetMatrix();
 	private:
