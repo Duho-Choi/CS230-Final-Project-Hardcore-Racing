@@ -1,5 +1,9 @@
 Assets/Mode3/Police.png
 HotSpot 44 108
+HotSpot 4 50
+HotSpot 84 50
+FrameSize 99 216
+NumFrames 3
 Anim Assets/Mode3/none.anm
 Anim Assets/Mode3/siren.anm
 CollisionRect -44 -108 44 108
