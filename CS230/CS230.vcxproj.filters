@@ -121,9 +121,6 @@
     <ClCompile Include="Game\GameParticles.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Mode3.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Police.cpp">
       <Filter>Game\Mode3</Filter>
     </ClCompile>
@@ -140,6 +137,9 @@
       <Filter>Game\Mode3</Filter>
     </ClCompile>
     <ClCompile Include="Game\Finish.cpp">
+      <Filter>Game\Mode3</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Mode3.cpp">
       <Filter>Game\Mode3</Filter>
     </ClCompile>
   </ItemGroup>
@@ -294,9 +294,6 @@
     <ClInclude Include="Game\GameParticles.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Mode3.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Police.h">
       <Filter>Game\Mode3</Filter>
     </ClInclude>
@@ -319,6 +316,9 @@
       <Filter>Game\Mode3</Filter>
     </ClInclude>
     <ClInclude Include="Game\Finish.h">
+      <Filter>Game\Mode3</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Mode3.h">
       <Filter>Game\Mode3</Filter>
     </ClInclude>
   </ItemGroup>

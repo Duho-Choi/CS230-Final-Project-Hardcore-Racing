@@ -62,12 +62,12 @@ void Runner::Update(double dt)
 			if (GetVelocity().y > -maxVelocity)
 				UpdateVelocity({ 0, -accel * dt });
 		}
-		Engine::GetGSComponent<DustEmitter>()->Emit(3,
-			GetPosition() - static_cast<math::vec2>(-GetGOComponent<CS230::Sprite>()->GetHotSpot(1)),
-			GetVelocity(), { -10, 20 }, 3.14 / 4);
-		Engine::GetGSComponent<DustEmitter>()->Emit(3,
-			GetPosition() - static_cast<math::vec2>(-GetGOComponent<CS230::Sprite>()->GetHotSpot(2)),
-			GetVelocity(), { -10, 20 }, 3.14 / 4);
+		Engine::GetGSComponent<DustEmitter>()->Emit(1,
+			GetPosition() + static_cast<math::vec2>(GetGOComponent<CS230::Sprite>()->GetHotSpot(1) - GetGOComponent<CS230::Sprite>()->GetHotSpot(0)),
+			GetVelocity(), { 0, 0 }, 3.14 / 4.0);
+		Engine::GetGSComponent<DustEmitter>()->Emit(1,
+			GetPosition() + static_cast<math::vec2>(GetGOComponent<CS230::Sprite>()->GetHotSpot(2) - GetGOComponent<CS230::Sprite>()->GetHotSpot(0)),
+			GetVelocity(), { 0, 0 }, 3.14 / 4.0);
 
 		// Blink Runner
 		if (hurtTimer > 0)

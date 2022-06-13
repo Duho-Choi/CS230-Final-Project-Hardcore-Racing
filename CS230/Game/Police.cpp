@@ -57,8 +57,15 @@ void Police::Draw(math::TransformMatrix cameraMatrix)
 
 	if (spritePtr != nullptr)
 		spritePtr->Draw(displayMatrix);
+	
+	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
+	{
+		if (explosionSprite.IsAnimationDone() == true)
+			explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
+		else
+			explosionSprite.Draw(cameraMatrix * GetMatrix() * math::ScaleMatrix({ 3.5, 3.5 }));
+	}
 }
-
 
 GameObjectType Police::GetObjectType()
 {
@@ -77,12 +84,16 @@ bool Police::CanCollideWith(GameObjectType objectBType)
 }
 void Police::ResolveCollision(CS230::GameObject* objectB)
 {
-	if (CanCollideWith(objectB->GetObjectType()) == true)
+	if (objectB != this)
 	{
-		// Add Score
-		Engine::GetGSComponent<Score>()->AddScore(100);
+		if (CanCollideWith(objectB->GetObjectType()) == true)
+		{
+			// Add Score
+			Engine::GetGSComponent<Score>()->AddScore(100);
 
-		GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Police_Anim::None_Anim));
-		RemoveGOComponent<CS230::Collision>();
+			GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Police_Anim::None_Anim));
+			explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
+			RemoveGOComponent<CS230::Collision>();
+		}
 	}
 }

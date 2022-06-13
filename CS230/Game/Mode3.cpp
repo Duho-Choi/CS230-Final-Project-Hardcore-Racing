@@ -27,6 +27,11 @@ void Mode3::Load()
 	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 400, 200 }));
 	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 1000, 200 }));
 	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
+	gameObjectManagerPtr->Add(new Spike(math::vec2{ 980, 1200 }));	
+	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
+	gameObjectManagerPtr->Add(new Spike(math::vec2{ 980, 1200 }));	
+	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
+	gameObjectManagerPtr->Add(new Spike(math::vec2{ 980, 1200 }));
 	gameObjectManagerPtr->Add(new Finish(math::irect2{ { 0, finish_line }, { Engine::GetWindow().GetSize().x, finish_line + 100 } }));
 
 	// backgroundPtr
@@ -34,7 +39,7 @@ void Mode3::Load()
 
 	CS230::Camera* cameraPtr = new CS230::Camera({});
 	AddGSComponent(cameraPtr);
-	cameraPtr->SetExtent({ { 0, 0 }, { 0, 100000000 }});
+	cameraPtr->SetExtent({ { 0, 0 }, { 0, finish_line - Engine::GetWindow().GetSize().y }});
 
 	// Add Fonts
 	// Score

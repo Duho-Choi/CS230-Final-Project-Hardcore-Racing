@@ -35,7 +35,7 @@ MeteorBitEmitter::MeteorBitEmitter()
 	}
 }
 DustEmitter::DustEmitter()
-	: ParticleEmitter(1.0)
+	: ParticleEmitter(0.4)
 {
 	for (int i = 0; i < NumParticles; i++)
 	{
