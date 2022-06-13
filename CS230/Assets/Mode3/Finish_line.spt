@@ -1,4 +1,4 @@
 Assets/Mode3/Finish_line.png
-HotSpot 124 11
+HotSpot 64 11
 Anim assets/none.anm
-CollisionRect -124 -11 124 11
+CollisionRect -64 -11 64 11

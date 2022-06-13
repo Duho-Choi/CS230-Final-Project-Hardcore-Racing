@@ -10,8 +10,8 @@ class Runner;
 
 class Mode3 : public CS230::GameState {
 public:
-	static constexpr int speed = 200;
-	static constexpr int finish_line = 50000;
+	static constexpr int speed = 500;
+	static constexpr int finish_line = 5000;
 
 	Mode3();
 	void Load() override;
@@ -28,6 +28,7 @@ private:
 	CS230::InputKey modeReload;
 
 	CS230::Texture GameOverTexture;
+	CS230::Texture GameClearTexture;
 	CS230::Texture ScoreTexture;
 	CS230::Texture RestartTexture;
 

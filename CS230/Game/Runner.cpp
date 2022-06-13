@@ -64,10 +64,10 @@ void Runner::Update(double dt)
 		}
 		Engine::GetGSComponent<DustEmitter>()->Emit(1,
 			GetPosition() + static_cast<math::vec2>(GetGOComponent<CS230::Sprite>()->GetHotSpot(1) - GetGOComponent<CS230::Sprite>()->GetHotSpot(0)),
-			GetVelocity(), { 0, 0 }, 3.14 / 4.0);
+			GetVelocity(), { 0, 0 }, 1);
 		Engine::GetGSComponent<DustEmitter>()->Emit(1,
 			GetPosition() + static_cast<math::vec2>(GetGOComponent<CS230::Sprite>()->GetHotSpot(2) - GetGOComponent<CS230::Sprite>()->GetHotSpot(0)),
-			GetVelocity(), { 0, 0 }, 3.14 / 4.0);
+			GetVelocity(), { 0, 0 }, 1);
 
 		// Blink Runner
 		if (hurtTimer > 0)
@@ -125,7 +125,8 @@ std::string Runner::GetObjectTypeName()
 }
 bool Runner::CanCollideWith(GameObjectType objectBType)
 {
-	if (objectBType == GameObjectType::Police || objectBType == GameObjectType::Spike || objectBType == GameObjectType::Finish)
+	if (objectBType == GameObjectType::Police || objectBType == GameObjectType::Spike 
+		|| objectBType == GameObjectType::Finish)
 		return true;
 	else
 		return false;
@@ -138,29 +139,40 @@ void Runner::ResolveCollision(CS230::GameObject* objectB)
 	{
 		switch (objectB->GetObjectType())
 		{
-
 		case GameObjectType::Police:
 
+			if (hurtTimer <= 0)
+			{
+				hurtTimer = hurtTime;
+				Engine::GetGSComponent<Hp>()->MinusHp(20);
+				isDead = Engine::GetGSComponent<Hp>()->IsDead();
+				if (isDead == true)
+				{
+					explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
+					RemoveGOComponent<CS230::Collision>();
+				}
+			}
 			break;
 
 		case GameObjectType::Spike:
 
+			if (hurtTimer <= 0)
+			{
+				hurtTimer = hurtTime;
+				Engine::GetGSComponent<Hp>()->MinusHp(10);
+				isDead = Engine::GetGSComponent<Hp>()->IsDead();
+				if (isDead == true)
+				{
+					explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
+					RemoveGOComponent<CS230::Collision>();
+				}
+			}
 			break;
 
 		case GameObjectType::Finish:
-
+			RemoveGOComponent<CS230::Collision>();
 			break;
 		}
-		if (hurtTimer <= 0)
-		{
-			hurtTimer = hurtTime;
-			Engine::GetGSComponent<Hp>()->MinusHp(30);
-			isDead = Engine::GetGSComponent<Hp>()->IsDead();
-			if (isDead == true)
-			{
-				explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
-				RemoveGOComponent<CS230::Collision>();
-			}
-		}
+		
 	}
 }

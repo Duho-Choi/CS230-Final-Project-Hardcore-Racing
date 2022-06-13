@@ -26,13 +26,21 @@ void Mode3::Load()
 	gameObjectManagerPtr->Add(runnerPtr);
 	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 400, 200 }));
 	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 1000, 200 }));
-	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
-	gameObjectManagerPtr->Add(new Spike(math::vec2{ 980, 1200 }));	
-	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
-	gameObjectManagerPtr->Add(new Spike(math::vec2{ 980, 1200 }));	
-	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
-	gameObjectManagerPtr->Add(new Spike(math::vec2{ 980, 1200 }));
-	gameObjectManagerPtr->Add(new Finish(math::irect2{ { 0, finish_line }, { Engine::GetWindow().GetSize().x, finish_line + 100 } }));
+
+	int spike_x{ 0 };
+	int spike_y{ 0 };
+	for (int i = 0; i < 10; i++)
+	{
+		while (spike_y < 1000 || spike_y > finish_line - 1000)
+		{
+			spike_y = rand() % finish_line;
+		}
+		if (spike_y % 2 == 0)
+			spike_x = 460;
+		else spike_x = 980;
+		gameObjectManagerPtr->Add(new Spike(math::ivec2{ spike_x, spike_y }));
+	}
+	gameObjectManagerPtr->Add(new Finish(math::ivec2{ Engine::GetWindow().GetSize().x / 2, finish_line - 500 } ));
 
 	// backgroundPtr
 	AddGSComponent(new Mode3_background("Assets/Mode3/background_track.jpg"));
