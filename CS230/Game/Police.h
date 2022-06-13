@@ -24,8 +24,9 @@ private:
     
     CS230::Sprite explosionSprite{ "Assets/Mode3/Explosion.spt", this };
 
-    double rotation;
 
-    static constexpr double accel = 500;
-    static constexpr double drag = 1.0f;
+    static constexpr double accel = 200;
+    static constexpr float drag = 1.0f;
+
+    static constexpr double rotationRate = 1.5;
 };
