@@ -114,13 +114,10 @@ void Mode3::Update(double dt)
 }
 
 void Mode3::Draw()
-{
-	Engine::GetWindow().Clear(0x70FF70FF);
-	
+{	
 	// Background / Camera
 	CS230::Camera* cameraPtr = GetGSComponent<CS230::Camera>();
-	math::ivec2 background_vec = { (Engine::GetWindow().GetSize().x - GetGSComponent<Mode3_background>()->GetSize().x) / 2, 0};
-	GetGSComponent<Mode3_background>()->Draw((static_cast<math::vec2>(background_vec) - cameraPtr->GetPosition()));
+	GetGSComponent<Mode3_background>()->Draw(math::vec2{0, 0} - cameraPtr->GetPosition());
 
 	math::ivec2 winSize = Engine::GetWindow().GetSize();
 	if (runnerPtr->IsDead() == false)
