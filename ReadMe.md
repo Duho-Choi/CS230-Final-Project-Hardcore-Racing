@@ -3,8 +3,13 @@ Duho Choi \
 Minsu Kim
 
 # Compilation Instruction
+1. Double click `CS230_DuhoChoi.sln`.
+2. Check `Solution configuration - Release` and `Solution platforms - x64`!
+3. Click `Local Windows Debugger` or press `F5` to execute program!  
 
 # License
+Please Check `Assets\Mode3` folder! \
+Every assets are CC0.
 
 # Concept (Later deleted) 
 + 컨셉 : 경찰과 도둑
