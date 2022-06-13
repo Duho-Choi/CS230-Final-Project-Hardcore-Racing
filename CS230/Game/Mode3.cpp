@@ -75,9 +75,11 @@ void Mode3::Load()
 
 void Mode3::Update(double dt)
 {
-	GetGSComponent<CS230::GameObjectManager>()->Update(dt);
-	GetGSComponent<CS230::Camera>()->Mode3_Update(dt, Mode3::speed);
-	GetGSComponent<Mode3_background>()->Update(GetGSComponent<CS230::Camera>()->GetPosition());
+	if (gameClear == false) {
+		GetGSComponent<CS230::GameObjectManager>()->Update(dt);
+		GetGSComponent<CS230::Camera>()->Mode3_Update(dt, Mode3::speed);
+		GetGSComponent<Mode3_background>()->Update(GetGSComponent<CS230::Camera>()->GetPosition());
+	}
 
 	// Spawn Police
 	policeTimer -= dt;
@@ -129,6 +131,13 @@ void Mode3::Draw()
 		GameOverTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - GameOverTexture.GetSize().x / 2, 
 			winSize.y / 2 + GameOverTexture.GetSize().y / 2 }));
 		RestartTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - RestartTexture.GetSize().x / 2, 
+			winSize.y / 2 - RestartTexture.GetSize().y / 2 }));
+	}
+	if (gameClear == true)
+	{
+		GameClearTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - GameClearTexture.GetSize().x / 2,
+			winSize.y / 2 + GameOverTexture.GetSize().y / 2 }));
+		RestartTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - RestartTexture.GetSize().x / 2,
 			winSize.y / 2 - RestartTexture.GetSize().y / 2 }));
 	}
 

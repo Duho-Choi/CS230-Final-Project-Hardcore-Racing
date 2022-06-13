@@ -11,7 +11,7 @@ class Runner;
 class Mode3 : public CS230::GameState {
 public:
 	static constexpr int speed = 1000;
-	static constexpr int finish_line = 100000;
+	static constexpr int finish_line = 50000;
 	static inline int policeCount = 0;
 	static inline bool gameClear = false;
 
