@@ -13,10 +13,18 @@
 #include "Hp.h"
 #include "Mode3_background.h"
 
-Mode3::Mode3() : modeReload(CS230::InputKey::Keyboard::R), mainMenu(CS230::InputKey::Keyboard::Escape) {}
+Mode3::Mode3() 
+	: modeReload(CS230::InputKey::Keyboard::R), mainMenu(CS230::InputKey::Keyboard::Escape),
+	policeTimer(2)
+{}
 
 void Mode3::Load()
 {
+	// Reset Game clear
+	gameClear = false; 
+	policeTimer = 2;
+	policeCount = 0;
+
 	// Add GameObjectManager
 	AddGSComponent(new CS230::GameObjectManager);
 
@@ -24,20 +32,17 @@ void Mode3::Load()
 	CS230::GameObjectManager* gameObjectManagerPtr = GetGSComponent<CS230::GameObjectManager>(); 
 	runnerPtr = new Runner(math::vec2{ Engine::GetWindow().GetSize() / 2 });
 	gameObjectManagerPtr->Add(runnerPtr);
-	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 400, 200 }));
-	gameObjectManagerPtr->Add(new Police(runnerPtr, math::vec2{ 1000, 200 }));
 
 	int spike_x{ 0 };
 	int spike_y{ 0 };
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 15; i++)
 	{
-		while (spike_y < 1000 || spike_y > finish_line - 1000)
-		{
-			spike_y = rand() % finish_line;
-		}
+		spike_y = rand() % finish_line;
+		
 		if (spike_y % 2 == 0)
-			spike_x = 460;
-		else spike_x = 980;
+			spike_x = 430;
+		else spike_x = 1010;
+
 		gameObjectManagerPtr->Add(new Spike(math::ivec2{ spike_x, spike_y }));
 	}
 	gameObjectManagerPtr->Add(new Finish(math::ivec2{ Engine::GetWindow().GetSize().x / 2, finish_line - 500 } ));
@@ -55,8 +60,8 @@ void Mode3::Load()
 	// Hp
 	AddGSComponent(new Hp{ 100, Fonts::Font1 });
 	// Game Over
-	GameOverTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Game Over", 0x00FFFFFF, true);
-	ScoreTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Score : ", 0xFFFFFFFF, true);
+	GameOverTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Game Over", 0xFFFFFFFF, true);
+	GameClearTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Game Clear! Congratulations!", 0x00FFFFFF, true);
 	RestartTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Press r to restart", 0xFFFFFFFF, true);
 
 	// Add Particle
@@ -74,10 +79,27 @@ void Mode3::Update(double dt)
 	GetGSComponent<CS230::Camera>()->Mode3_Update(dt, Mode3::speed);
 	GetGSComponent<Mode3_background>()->Update(GetGSComponent<CS230::Camera>()->GetPosition());
 
-	if (mainMenu.IsKeyReleased() == true)
+	// Spawn Police
+	policeTimer -= dt;
+	CS230::GameObjectManager* gameObjectManagerPtr = GetGSComponent<CS230::GameObjectManager>();
+	if (gameClear == false)
 	{
+		if (policeCount < maxPoliceCount)
+		{
+			if (policeTimer < 0)
+			{
+				policeTimer = policeTime;
+				gameObjectManagerPtr->Add(new Police(runnerPtr,
+					math::vec2{ static_cast<double>(rand() % Engine::GetWindow().GetSize().x), runnerPtr->GetPosition().y - 1000 }));
+				policeCount++;
+			}
+		}
+	}
+
+
 	// @ Modify update to player Ptr
 	//GetGSComponent<CS230::Camera>()->Update(heroPtr->GetPosition());
+	if (mainMenu.IsKeyReleased() == true) {
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(Screens::MainMenu));
 	}
 #if _DEBUG
@@ -90,6 +112,7 @@ void Mode3::Update(double dt)
 	GetGSComponent<ShowCollision>()->Update(dt);
 #endif
 }
+
 void Mode3::Draw()
 {
 	Engine::GetWindow().Clear(0x70FF70FF);
@@ -106,9 +129,10 @@ void Mode3::Draw()
 	}
 	else if (runnerPtr->IsDead() == true)
 	{
-		//GetGSComponent<Score>()->Draw(math::ivec2{ winSize.x / 2 -  });
-		GameOverTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - GameOverTexture.GetSize().x / 2, winSize.y / 2 + GameOverTexture.GetSize().y / 2 }));
-		RestartTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - RestartTexture.GetSize().x / 2, winSize.y / 2 - RestartTexture.GetSize().y / 2 }));
+		GameOverTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - GameOverTexture.GetSize().x / 2, 
+			winSize.y / 2 + GameOverTexture.GetSize().y / 2 }));
+		RestartTexture.Draw(math::TranslateMatrix(math::ivec2{ winSize.x / 2 - RestartTexture.GetSize().x / 2, 
+			winSize.y / 2 - RestartTexture.GetSize().y / 2 }));
 	}
 
 	// GameObjectManager

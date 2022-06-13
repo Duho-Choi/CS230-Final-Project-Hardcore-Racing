@@ -170,6 +170,7 @@ void Runner::ResolveCollision(CS230::GameObject* objectB)
 			break;
 
 		case GameObjectType::Finish:
+			Mode3::gameClear = true;
 			RemoveGOComponent<CS230::Collision>();
 			break;
 		}

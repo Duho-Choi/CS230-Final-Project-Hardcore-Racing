@@ -24,13 +24,12 @@ void Police::Update(double dt)
 		if (explosionSprite.IsAnimationDone() == true)
 		{
 			SetShouldBeDestroyed(true);
+			Mode3::policeCount--;
 		}
 	}
 
 	math::vec2 facingVector = (math::RotateMatrix(GetRotation()) * math::vec2{ 0,1 }).Normalize();
 	math::vec2 playerVector = (player->GetPosition() - GetPosition()).Normalize();
-
-
 
 	if (facingVector.Cross(playerVector) > 0.05)
 	{
@@ -40,19 +39,15 @@ void Police::Update(double dt)
 	{
 		UpdateRotation(-rotationRate * dt);
 	}
-//if (facingVector.Cross(playerVector) <= -0.05)
-//{
-//	UpdateRotation(-rotationRate * dt);
-//}
-//	UpdateVelocity(math::RotateMatrix(GetRotation()) * math::vec2{ 0,accel * dt });
-//}
-//UpdateVelocity(-(GetVelocity() * drag * dt));
 
 	UpdateVelocity(math::RotateMatrix(GetRotation()) * math::vec2{ 0, accel * dt });
-
 	UpdateVelocity(-GetVelocity() * Police::drag * dt);
-
-	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt });
+	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt }); 
+	
+	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
+	{
+		explosionSprite.Update(dt);
+	}
 }
 
 void Police::Draw(math::TransformMatrix cameraMatrix)
@@ -65,10 +60,12 @@ void Police::Draw(math::TransformMatrix cameraMatrix)
 	
 	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
 	{
-		if (explosionSprite.IsAnimationDone() == true)
-			explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
-		else
+		if (explosionSprite.IsAnimationDone() == false) //true)
+		{
+		//	explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
+		//else
 			explosionSprite.Draw(cameraMatrix * GetMatrix() * math::ScaleMatrix({ 3.5, 3.5 }));
+		}
 	}
 }
 
@@ -98,6 +95,7 @@ void Police::ResolveCollision(CS230::GameObject* objectB)
 
 			GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Police_Anim::None_Anim));
 			explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::Explode_Anim));
+
 			RemoveGOComponent<CS230::Collision>();
 		}
 	}

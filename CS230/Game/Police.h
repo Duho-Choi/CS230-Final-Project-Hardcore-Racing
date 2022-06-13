@@ -23,8 +23,7 @@ private:
     GameObject* player;
     
     CS230::Sprite explosionSprite{ "Assets/Mode3/Explosion.spt", this };
-
-
+    
     static constexpr double accel = 200;
     static constexpr float drag = 1.0f;
 
