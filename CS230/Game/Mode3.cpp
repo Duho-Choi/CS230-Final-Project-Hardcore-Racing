@@ -9,6 +9,7 @@
 #include "Screens.h"
 #include "GameParticles.h"
 #include "Hp.h"
+#include "Mode3_background.h"
 
 Mode3::Mode3() : modeReload(CS230::InputKey::Keyboard::R), mainMenu(CS230::InputKey::Keyboard::Escape) {}
 
@@ -29,11 +30,11 @@ void Mode3::Load()
 	gameObjectManagerPtr->Add(runnerPtr);
 
 	// backgroundPtr
-	backgroundPtr = Engine::GetTextureManager().Load("Assets/Mode3/background_track.jpg");
+	AddGSComponent(new Mode3_background("Assets/Mode3/background_track.jpg"));
 
 	CS230::Camera* cameraPtr = new CS230::Camera({});
 	AddGSComponent(cameraPtr);
-	cameraPtr->SetExtent({ { 0, 0 }, { backgroundPtr->GetSize() - Engine::GetWindow().GetSize()}});
+	cameraPtr->SetExtent({ { 0, 0 }, { 0, 100000000 }});
 
 	// Add Fonts
 	GameOverTexture = Engine::GetSpriteFont(static_cast<int>(Fonts::Font1)).DrawTextToTexture("Game Over", 0x00FFFFFF, true);
@@ -54,6 +55,7 @@ void Mode3::Update(double dt)
 {
 	GetGSComponent<CS230::GameObjectManager>()->Update(dt);
 	GetGSComponent<CS230::Camera>()->Mode3_Update(dt, Mode3::speed);
+	GetGSComponent<Mode3_background>()->Update(GetGSComponent<CS230::Camera>()->GetPosition());
 
 	if (mainMenu.IsKeyReleased() == true)
 	{
@@ -79,8 +81,8 @@ void Mode3::Draw()
 	// Background / Camera
 	CS230::Camera* cameraPtr = GetGSComponent<CS230::Camera>();
 
-	math::ivec2 background_vec = { (Engine::GetWindow().GetSize().x - backgroundPtr->GetSize().x) / 2, 0 };
-	backgroundPtr->Draw(math::TranslateMatrix(static_cast<math::vec2>(background_vec) - cameraPtr->GetPosition()));
+	math::ivec2 background_vec = { (Engine::GetWindow().GetSize().x - GetGSComponent<Mode3_background>()->GetSize().x) / 2, 0};
+	GetGSComponent<Mode3_background>()->Draw((static_cast<math::vec2>(background_vec) - cameraPtr->GetPosition()));
 
 	math::ivec2 winSize = Engine::GetWindow().GetSize();
 	

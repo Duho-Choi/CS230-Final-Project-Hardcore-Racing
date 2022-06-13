@@ -134,7 +134,10 @@
       <Filter>Game\Mode3</Filter>
     </ClCompile>
     <ClCompile Include="Game\Hp.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\Mode3</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Mode3_background.cpp">
+      <Filter>Game\Mode3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,7 +310,10 @@
       <Filter>Game\Mode3</Filter>
     </ClInclude>
     <ClInclude Include="Game\Hp.h">
-      <Filter>Game</Filter>
+      <Filter>Game\Mode3</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Mode3_background.h">
+      <Filter>Game\Mode3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
