@@ -82,6 +82,18 @@ void Runner::Update(double dt)
 	UpdateVelocity(-GetVelocity() * Runner::drag * dt);
 	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt });
 
+	// Set position inside screen
+	if (GetPosition().x < 0)
+		SetPosition({ 0, GetPosition().y });
+	else if (GetPosition().x > Engine::GetWindow().GetSize().x)
+		SetPosition({ static_cast<double>(Engine::GetWindow().GetSize().x), GetPosition().y });
+
+	math::vec2 cameraPosition = Engine::GetGSComponent<CS230::Camera>()->GetPosition();
+	if (GetPosition().y < cameraPosition.y)
+		SetPosition({ GetPosition().x, cameraPosition.y });
+	else if (GetPosition().y > cameraPosition.y + Engine::GetWindow().GetSize().y)
+		SetPosition({ GetPosition().x, cameraPosition.y + Engine::GetWindow().GetSize().y });
+
 	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
 	{
 		explosionSprite.Update(dt);

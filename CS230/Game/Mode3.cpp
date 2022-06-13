@@ -30,7 +30,7 @@ void Mode3::Load()
 
 	// Add GameObjects to GameObjectManager
 	CS230::GameObjectManager* gameObjectManagerPtr = GetGSComponent<CS230::GameObjectManager>(); 
-	runnerPtr = new Runner(math::vec2{ Engine::GetWindow().GetSize() / 2 });
+	runnerPtr = new Runner(math::vec2{ static_cast<double>(Engine::GetWindow().GetSize().x / 2), 500 });
 	gameObjectManagerPtr->Add(runnerPtr);
 
 	int spike_x{ 0 };
