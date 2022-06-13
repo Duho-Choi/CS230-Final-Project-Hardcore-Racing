@@ -9,7 +9,7 @@
 #include "Explosion_Anims.h"
 
 Police::Police(GameObject* player, math::vec2 startPos)
-	: player(player), GameObject(startPos, 0, { 0.6, 0.6 }), rotation(0)
+	: player(player), GameObject(startPos, 0, { 0.6, 0.6 })
 {
 	AddGOComponent(new CS230::Sprite("Assets/Mode3/Police.spt", this));
 	GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Police_Anim::Siren_Anim));
@@ -18,7 +18,7 @@ Police::Police(GameObject* player, math::vec2 startPos)
 void Police::Update(double dt)
 {
 	GameObject::Update(dt);
-	 
+
 	if (explosionSprite.GetCurrentAnim() == static_cast<int>(Explosion_Anim::Explode_Anim))
 	{
 		if (explosionSprite.IsAnimationDone() == true)
@@ -29,12 +29,14 @@ void Police::Update(double dt)
 
 	math::vec2 facingVector = (math::RotateMatrix(GetRotation()) * math::vec2{ 0,1 }).Normalize();
 	math::vec2 playerVector = (player->GetPosition() - GetPosition()).Normalize();
-	
-	if (GetRotation() <= facingVector.Cross(playerVector))
+
+
+
+	if (facingVector.Cross(playerVector) > 0.05)
 	{
 		UpdateRotation(1.5 * dt);
 	}
-	else
+	else if (facingVector.Cross(playerVector) < -0.05)
 	{
 		UpdateRotation(-1.5 * dt);
 	}
@@ -53,7 +55,7 @@ void Police::Update(double dt)
 void Police::Draw(math::TransformMatrix cameraMatrix)
 {
 	CS230::Sprite* spritePtr = GetGOComponent<CS230::Sprite>();
-	math::TransformMatrix displayMatrix = cameraMatrix * GetMatrix() * math::RotateMatrix{ rotation };
+	math::TransformMatrix displayMatrix = cameraMatrix * GetMatrix();
 
 	if (spritePtr != nullptr)
 		spritePtr->Draw(displayMatrix);
