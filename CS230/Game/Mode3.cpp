@@ -4,9 +4,11 @@
 #include "Mode3.h"
 #include "Runner.h"
 #include "Police.h"
+#include "Spike.h"
 #include "Fonts.h"
 #include "Score.h"
 #include "Screens.h"
+#include "Finish.h"
 #include "GameParticles.h"
 #include "Hp.h"
 #include "Mode3_background.h"
@@ -22,8 +24,10 @@ void Mode3::Load()
 	CS230::GameObjectManager* gameObjectManagerPtr = GetGSComponent<CS230::GameObjectManager>(); 
 	runnerPtr = new Runner(math::vec2{ Engine::GetWindow().GetSize() / 2 });
 	gameObjectManagerPtr->Add(runnerPtr);
-	gameObjectManagerPtr->Add(new Police(math::vec2{ 200, 200 }));
-	gameObjectManagerPtr->Add(new Police(math::vec2{ 1200, 200 }));
+	gameObjectManagerPtr->Add(new Police(math::vec2{ 400, 200 }));
+	gameObjectManagerPtr->Add(new Police(math::vec2{ 1000, 200 }));
+	gameObjectManagerPtr->Add(new Spike(math::vec2{ 460, 1200 }));
+	gameObjectManagerPtr->Add(new Finish(math::irect2{ { 0, finish_line }, { Engine::GetWindow().GetSize().x, finish_line + 100 } }));
 
 	// backgroundPtr
 	AddGSComponent(new Mode3_background("Assets/Mode3/background_track.jpg"));
@@ -64,28 +68,25 @@ void Mode3::Update(double dt)
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(Screens::MainMenu));
 	}
 #if _DEBUG
+	// mode Reload
 	if (modeReload.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().ReloadState();
 	}
-#endif
 	// Update ShowCollision
-#if _DEBUG
 	GetGSComponent<ShowCollision>()->Update(dt);
 #endif
 }
 void Mode3::Draw()
 {
-	Engine::GetWindow().Clear(0x50FF50FF);
+	Engine::GetWindow().Clear(0x70FF70FF);
 	
 	// Background / Camera
 	CS230::Camera* cameraPtr = GetGSComponent<CS230::Camera>();
-
 	math::ivec2 background_vec = { (Engine::GetWindow().GetSize().x - GetGSComponent<Mode3_background>()->GetSize().x) / 2, 0};
 	GetGSComponent<Mode3_background>()->Draw((static_cast<math::vec2>(background_vec) - cameraPtr->GetPosition()));
 
 	math::ivec2 winSize = Engine::GetWindow().GetSize();
-	
 	if (runnerPtr->IsDead() == false)
 	{
 		GetGSComponent<Score>()->Draw(math::ivec2{ 10, winSize.y - 5 });

@@ -27,6 +27,6 @@ void Score::Draw(math::ivec2 location)
 }
 void Score::RenderText()
 {
-	std::string scoreString = "Score: " + std::to_string(score / 100) + std::to_string((score % 100) / 10) + std::to_string(score % 10);
+	std::string scoreString = "Score: " + std::to_string(score / 1000) + std::to_string((score % 1000) / 100) + std::to_string((score % 100) / 10) + std::to_string(score % 10);
 	scoreTexture = Engine::GetSpriteFont(static_cast<int>(fontToUse)).DrawTextToTexture(scoreString, 0xFFFFFFFF, true);
 }

@@ -23,6 +23,7 @@ enum class GameObjectType {
     Runner,
     Police,
     Spike,
+    Finish,
     Particle,
     Count,
 };

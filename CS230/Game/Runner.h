@@ -36,7 +36,7 @@ private:
     static constexpr double accel = 600;
     static constexpr int maxVelocity = 1000;
     static constexpr float drag = 2.0f;
-    static constexpr float hurtTime = 0.1f;
+    static constexpr float hurtTime = 1.2f;
 
     double hurtTimer;
     bool drawRunner;

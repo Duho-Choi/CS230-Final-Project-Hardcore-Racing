@@ -1,6 +1,6 @@
 Assets/Mode3/Explosion.png
 HotSpot 32 33
-FrameSize 64 66
+FrameSize 65 66
 NumFrames 10
 Anim Assets/Mode3/none.anm
 Anim Assets/Mode3/explode.anm

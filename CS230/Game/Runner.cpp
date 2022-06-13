@@ -11,7 +11,7 @@
 #include "Hp.h"
 
 Runner::Runner(math::vec2 startPos)
-	: GameObject(startPos, 0, { 0.5, 0.5 }), leftKey(CS230::InputKey::Keyboard::A),
+	: GameObject(startPos, 0, { 0.6, 0.6 }), leftKey(CS230::InputKey::Keyboard::A),
 	rightKey(CS230::InputKey::Keyboard::D), frontKey(CS230::InputKey::Keyboard::W),
 	backKey(CS230::InputKey::Keyboard::S), rotation(0),
 	hurtTimer(0), drawRunner(true), isDead(false)
@@ -101,7 +101,7 @@ void Runner::Draw(math::TransformMatrix cameraMatrix)
 		if(explosionSprite.IsAnimationDone() == true)
 			explosionSprite.PlayAnimation(static_cast<int>(Explosion_Anim::None_Anim));
 		else
-			explosionSprite.Draw(cameraMatrix * GetMatrix() * math::ScaleMatrix({ 3, 3 }));
+			explosionSprite.Draw(cameraMatrix * GetMatrix() * math::ScaleMatrix({ 3.5, 3.5 }));
 	}
 
 #ifdef _DEBUG
@@ -123,7 +123,7 @@ std::string Runner::GetObjectTypeName()
 }
 bool Runner::CanCollideWith(GameObjectType objectBType)
 {
-	if (objectBType == GameObjectType::Police || objectBType == GameObjectType::Spike)
+	if (objectBType == GameObjectType::Police || objectBType == GameObjectType::Spike || objectBType == GameObjectType::Finish)
 		return true;
 	else
 		return false;
@@ -134,6 +134,21 @@ void Runner::ResolveCollision(CS230::GameObject* objectB)
 {
 	if (CanCollideWith(objectB->GetObjectType()) == true)
 	{
+		switch (objectB->GetObjectType())
+		{
+
+		case GameObjectType::Police:
+
+			break;
+
+		case GameObjectType::Spike:
+
+			break;
+
+		case GameObjectType::Finish:
+
+			break;
+		}
 		if (hurtTimer <= 0)
 		{
 			hurtTimer = hurtTime;
