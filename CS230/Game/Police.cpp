@@ -48,7 +48,10 @@ void Police::Update(double dt)
 //}
 //UpdateVelocity(-(GetVelocity() * drag * dt));
 
+	UpdateVelocity(math::RotateMatrix(GetRotation()) * math::vec2{ 0, accel * dt });
+
 	UpdateVelocity(-GetVelocity() * Police::drag * dt);
+
 	UpdatePosition({ GetVelocity().x * dt, (Mode3::speed + GetVelocity().y) * dt });
 }
 
