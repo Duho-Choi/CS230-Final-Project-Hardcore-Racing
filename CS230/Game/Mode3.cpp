@@ -13,6 +13,7 @@ Creation date: 6/9/2022
 #include "Mode3.h"
 #include "Fonts.h"
 #include "Score.h"
+#include "Hp.h"
 
 Mode3::Mode3() :
 	modeMain(CS230::InputKey::Keyboard::Escape), modeReload(CS230::InputKey::Keyboard::R)
@@ -27,6 +28,9 @@ void Mode3::Load()
 
 	// score
 	AddGSComponent(new Score{ 0, Fonts::Font1 });
+
+	// hp
+	AddGSComponent(new Hp{ 100, Fonts::Font1 });
 
 	// Gameobject
 	AddGSComponent(new CS230::GameObjectManager);
@@ -81,9 +85,9 @@ void Mode3::Draw()
 	gameObjectManagerPtr->DrawAll(cameraMatrix);
 
 
-	// Score
+	// Score & Hp
 	math::ivec2 winSize = Engine::GetWindow().GetSize();
 	GetGSComponent<Score>()->Draw(math::ivec2{ 10, winSize.y - 5 });
 
-
+	GetGSComponent<Hp>()->Draw(math::ivec2{ winSize.x - 10, winSize.y - 5 });
 }

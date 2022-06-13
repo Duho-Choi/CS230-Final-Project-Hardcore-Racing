@@ -124,6 +124,9 @@
     <ClCompile Include="Game\Mode3.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Hp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Logger.h">
@@ -280,6 +283,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Mode3.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Hp.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
