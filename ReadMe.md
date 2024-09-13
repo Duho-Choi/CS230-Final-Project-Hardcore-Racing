@@ -8,7 +8,6 @@ Minsu Kim
 3. Click `Local Windows Debugger` or press `F5` to execute program!  
 
 # License
-Please Check `Assets\Mode3` folder! \
 Every assets are CC0.
 
 # Game Concept
