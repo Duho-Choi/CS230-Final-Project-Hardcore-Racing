@@ -22,7 +22,7 @@ Creation date: 3/13/2022
 int main(void) {
 	try {
 		Engine& engine = Engine::Instance();
-		engine.Init("Week 12 - Duho Choi");
+		engine.Init("CS230 Game Compilation");
 		Splash splash;
 		MainMenu mainmenu;
 		Mode1 mode1;
