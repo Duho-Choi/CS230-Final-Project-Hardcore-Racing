@@ -138,9 +138,7 @@ xcopy /d /y Assets\* "$(OutputPath)Assets"
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>if not exist "$(OutputPath)Assets" mkdir "$(OutputPath)Assets"
-xcopy /d /y Assets\* "$(OutputPath)Assets"
-</Command>
+      <Command>xcopy /d /y /s "$(ProjectDir)Assets\*" "$(OutputPath)Assets\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,9 +160,7 @@ xcopy /d /y Assets\* "$(OutputPath)Assets"
       <AdditionalOptions>/ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>if not exist "$(OutputPath)Assets" mkdir "$(OutputPath)Assets"
-xcopy /d /y Assets\* "$(OutputPath)Assets"
-</Command>
+      <Command>xcopy /d /y /s "$(ProjectDir)Assets\*" "$(OutputPath)Assets\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
